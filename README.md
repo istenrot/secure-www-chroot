@@ -45,6 +45,7 @@ chroot = /srv/php-chroot
 ## Contact the developer
 
 Project home page: https://github.com/istenrot/secure-www-chroot
+
 Twitter: @istenrot
 
 Feel free to give me feedback and please do send GitHub pull requests!
