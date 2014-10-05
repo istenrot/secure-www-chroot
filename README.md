@@ -16,11 +16,16 @@ Without modifications the script expects that server's document root is under */
 * It creates temporary directories isolated from the base system for chroot environments
 * It uses bind mounts to set safe mount options for temporary directories
 * It prohibits use of setuid binaries
+* By default hinders server account names from prying eyes, configurable list of accounts that are enabled in chroot environments
 * Supports SELinux
 
 ## How to install
 
 Copy the script file *create-www-chroot.sh* to */usr/local/sbin*.
+
+Edit array WANT_BINARIES in the script file to accomodate your needs for system binaries inside chroot environments.
+
+Edit or comment out array ENABLED_ACCOUNTS in the script file to enable server accounts you need in chroot environments.
 
 ## Usage
 

@@ -37,6 +37,14 @@ WANT_BINARIES[${#WANT_BINARIES[@]}]="/usr/bin/gm"
 WANT_BINARIES[${#WANT_BINARIES[@]}]="/usr/bin/gsnd"
 WANT_BINARIES[${#WANT_BINARIES[@]}]="/bin/ls"
 
+# Hide all server accounts in /etc/passwd except ones listed in this array
+# Comment out the arrray if you don't want to modify /etc/password in chroot environments
+# Doesn't support additional groups, only primary group for an account is enabled
+# If you need support for additional groups comment out the array
+ENABLED_ACCOUNTS[${#ENABLED_ACCOUNTS[@]}]="root"
+ENABLED_ACCOUNTS[${#ENABLED_ACCOUNTS[@]}]="apache"
+
+
 if [[ "$1" == "-u" ]]; then
 	CHROOT_DST="`echo \"$2\" | tr -s \"/\"`"
 	CHROOT_DST="${CHROOT_DST%%/}"
@@ -153,7 +161,20 @@ mkdir -m 700 "$CHROOT_DST/var/log/php-fpm"
 mkdir -m 700 "$CHROOT_DST/var/cache/fontconfig"
 
 # Populate /etc
-cp -d --preserve=all /etc/{localtime,hosts,passwd,group,nsswitch.conf,gai.conf,resolv.conf,ld.so.cache,my.cnf,environment} "$CHROOT_DST/etc/" &>/dev/null
+cp -d --preserve=all /etc/{localtime,hosts,nsswitch.conf,gai.conf,resolv.conf,ld.so.cache,my.cnf,environment} "$CHROOT_DST/etc/" &>/dev/null
+
+# Popupate /etc/{passwd,group} files
+if [[ ${#ENABLED_ACCOUNTS[@]} != 0 ]]; then
+	for ACCOUNT in ${ENABLED_ACCOUNTS[*]}; do
+		grep -P "^$ACCOUNT:" /etc/passwd >> "$CHROOT_DST/etc/passwd"
+		ACCOUNT_GID=`grep -P "^$ACCOUNT:" /etc/passwd | sed 's/^.*:.*:.*:\([0-9]\+\):.*$/\1/'`
+		grep -o -P "^.*:.*:$ACCOUNT_GID:" /etc/group >> "$CHROOT_DST/etc/group"
+	done
+	chcon --reference=/etc/passwd "$CHROOT_DST/etc/passwd"
+	chcon --reference=/etc/group "$CHROOT_DST/etc/group"
+else
+	cp -d --preserve=all /etc/{passwd,group} "$CHROOT_DST/etc/"
+fi
 
 # cp is a required binary, link it to the chroot environment
 ln "/bin/cp" "$CHROOT_DST/bin/cp"
