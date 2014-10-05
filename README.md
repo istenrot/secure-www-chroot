@@ -42,11 +42,18 @@ PHP-FPM has buid-in support for spawning child processes into a chroot environme
 chroot = /srv/php-chroot
 ```
 
+## Contact the developer
+
+Project home page: https://github.com/istenrot/secure-www-chroot
+Twitter: @istenrot
+
+Feel free to give me feedback and please do send GitHub pull requests!
+
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Ilari Stenroth
+Copyright (c) 2014 Ilari Stenroth (Twitter @istenrot)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
