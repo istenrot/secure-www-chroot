@@ -23,6 +23,13 @@ Copy the script file *create-www-chroot.sh* to */usr/local/sbin*.
 
 ## Usage
 
+```
+Usage: create-www-chroot.sh <chroot-dir>
+  Creates a new chroot environment and apply bind mounts
+Usage: create-www-chroot.sh -u <chroot-dir>
+  Unmounts bind mounts from a chroot environment
+```
+
 Here we use */srv/php-chroot* as an example destination for a new chroot environment.
 
 Add this to */etc/rc.local*:
