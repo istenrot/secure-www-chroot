@@ -47,7 +47,6 @@ if [[ "$1" == "-u" ]]; then
 		echo "Usage: `basename $0` -u <chroot-dir>"
 		echo "  Unmounts bind mounts from a chroot environment"
 		echo ""
-		echo "The destination directory must not exists."
 		exit 1
 	fi
 
