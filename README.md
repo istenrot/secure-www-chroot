@@ -10,6 +10,7 @@ Without modifications the script expects that server's document root is under */
 
 ## Features
 
+* Provides only a limited set of system binaries inside chroot environments, you have control what system binaries you provide
 * You don't need to update chroot environments separately from the base system, all binaries are hard linked and libraries are bind mounted
 * You don't need to rebuild chroot environments to add system fonts
 * It creates temporary directories isolated from the base system for chroot environments
