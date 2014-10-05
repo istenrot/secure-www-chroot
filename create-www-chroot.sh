@@ -23,7 +23,7 @@
 # THE SOFTWARE.
 
 # == create-www-chroot.sh ==
-# Version: 0.9 beta (for LAMP with PHP-FPM)
+# Version: 0.10 beta (for LAMP with PHP-FPM)
 # https://github.com/istenrot/secure-www-chroot
 # ==
 
